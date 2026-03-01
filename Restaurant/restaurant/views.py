@@ -14,6 +14,8 @@ def index(request):
         'products' : products,
         #'prod_count' : count,
     }
+    
+    return render(request, 'restaurant/index.html', context)
         
 def cart_page(request):
     ...
