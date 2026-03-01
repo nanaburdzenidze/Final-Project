@@ -13,25 +13,35 @@ body{
 }
 .categories_label{
     margin-left: 0;
-    font-size: 60px;
+    font-size: 40;
     text-align: center;
     margin-top: 0;
 }
 .step{
-    font-size: 40px;
+    font-size: 30;
     margin-bottom: 0px;
+    margin-left: 20px;
 
 }
 .ordering{
-    font-size: 30px;
-    margin-left: 15px;
+    font-size: 25;
+    margin-left: 35px;
     margin-top: 0px;
+}
+.home{
+    cursor: pointer;
+    text-align: center;
+    margin-right: 20px;
+}
+.cart{
+    cursor: pointer;
+    text-align: center;
+    margin-right: 20px;
 }
 .categories {
     border-radius: 10px;
     border: 5px;
     flex-wrap: wrap;
-    background-color: violet;
     text-align: center;
     display: flex;
     list-style: none;
@@ -39,6 +49,10 @@ body{
 }
 
 .category {
+    background-color: violet;
+    border: 3px solid;
+    border-radius: 10px;
+    text-align: center;
     color: white;
     font-weight: bold;
     font-size: 20px;
