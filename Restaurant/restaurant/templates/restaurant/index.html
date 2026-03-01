@@ -1,13 +1,48 @@
+{% load static %}
+<link rel="stylesheet" href="{%static 'restaurant/style.css' %}">
 <!DOCTYPE html>
 <html>
-    <meta charset="UTF-8">
-    <meta name='viewport' content='device-width, initial-scale-1.0' >
-    <title>Restaurant</title>
-    <ul>
-        {% for category in categories %}
-            <li><p> {{ category.name }} </li></p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name='viewport' content='device-width, initial-scale-1.0' >
+        <title>Restaurant</title>
+    </head>
+    <body>
 
-        {% endfor %}
+        <div class = 'categories'>
+            {% for category in categories %}
+                <li class = 'categories_li'>
+                    <a href="?category={{ category.id }}">{{ category.name }} </a>
+                </li>
+            {% endfor %}
+            </div>
+        <div>
+            {% for product in products %}
+                <div class = 'product'>
+                    <img src={{ product.image }}>
+                    <p>Price:{{ product.price }}</p>
+                    <p>
+                        Spicy:
+                        {% if product.spicy %}
+                            yes
+                        {% endif %}
+                        {% if not product.spicy %}
+                            No
+                        {% endif %}
+                        </p>
+                    <p>Vegetarian:
+                        {% if product.vegetarian %}
+                        yes
+                        {% endif %}
+                        {% if not product.vegetarian %}
+                            No
+                        {% endif %}
+                        </p>
+                </div>
+            {% endfor %}
+        </div>
 
-    </ul>
+    </body>
+
+
 </html>
