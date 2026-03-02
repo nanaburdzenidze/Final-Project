@@ -15,7 +15,25 @@ def index(request):
     return render(request, 'restaurant/index.html', context)
         
 def cart(request):
-    cart = request.POST.get("cart",{})
+    cart = request.session.get('cart',{})
+    products = requests.get(f"{API_BASE}/api/Products/GetAll").json()
+    prods = []   
+    quantity = 0
+    total = 0
+        for prod in products :
+            if str(prod['id']) == cart['id']:
+                total += prod[id].price * cart['id']
+                prods.append(prod)
+                quantity += 1
+                    
+    
+    context = {
+        'products' = prods
+        'quantity' = quantity
+        'price' = 
+        'total' = total
+        'cart_count' =
+    }
     
     ...
     
