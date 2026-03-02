@@ -17,25 +17,31 @@ def index(request):
 def cart(request):
     cart = request.session.get('cart',{})
     products = requests.get(f"{API_BASE}/api/Products/GetAll").json()
+    
     prods = []   
     quantity = 0
     total = 0
-        for prod in products :
-            if str(prod['id']) == cart['id']:
-                total += prod[id].price * cart['id']
-                prods.append(prod)
-                quantity += 1
+    
+    for prod in products :
+        if str(prod['id']) == cart[str(prod['id'])]:
+            quantity += cart[str(prod['id'])]
+            total += cart[str(prod['id'])] * prod['price']
+            prods.append({
+                        'id' : prod['id'],
+                        'prod' : prod['name'],
+                        'image' : prod['image'],
+                        'quantity' : cart[str(prod['id'])],
+                        'tot' : cart[str(prod['id'])] * prod['price']
+                        })
                     
     
     context = {
-        'products' = prods
-        'quantity' = quantity
-        'price' = 
-        'total' = total
-        'cart_count' =
+        'products' :prods,
+        'total' : total,
+        'cart_count' : quantity,
     }
     
-    ...
+    return render(request, 'restaurant/cart.html', context)
     
 def update_cart(request):
     cart = request.POST.get("cart",{})
