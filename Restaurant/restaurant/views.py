@@ -52,7 +52,13 @@ def update_cart(request):
     return redirect('menu')
 
 def add_to_cart(request):
-    ...
+    cart = request.session.get('cart',{})
+    prod = request.POST.get('product_id')
+    if prod in cart:
+        cart[str(prod)] += 1
+    else:
+        cart[str(prod)] = 1
+    return redirect('menu')
 
 
     
