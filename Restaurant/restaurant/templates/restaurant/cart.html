@@ -43,7 +43,7 @@
                     <img src="{{ product.image }}" class='prod_img'>
 
                     <!-- 3) დასახელება-->
-                      <p>{{ product.name }}</p>
+                      <p>{{ product.prod }}</p>
 
                     <!-- 4) - ღილაკი-->
                     <form method = 'POST' action='update'>
@@ -59,7 +59,11 @@
                         <input type = 'hidden' name = 'action' value = "add">
                        <button type = "submit">+</button>
                      </form>
-                    <p>{{ product.price }}</p>
+                    <!-- 6) ერთი ერთეულის ფასი-->
+                    <p>${{ product.price }}</p>
+
+                    <!-- 7) მოცემული პროდუქტის მოცემული რაოდენობის ფასი-->
+                     <p> ${{product.total}}
                 </div>
             {%endfor%}
         </div>
