@@ -1,3 +1,5 @@
+{% load static %}
+<link rel="stylesheet" href="{%static 'restaurant/style.css' %}">
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,11 +32,34 @@
                 <div class = 'cart_item'>
                     <!-- თითოეული პროსუქტისთვის უნდა იყოს შემდეგი ელემენტები: 1) ღილაკი რომელიც მთლიანად წაშლის ამ პროდუქტს კალათიდან 2) სურათი 3) დასახელება 
                      +- ღილაკები, 5) რაოდენობა 6) ერთი ცალის ფასი და 7) შესაბამისი რაოდენობის ფასი-->
+
+                     <!-- აქ არის 1) ღილაკი რომელიც წაშლის პროდუქტს მთლიანად კალათიდან-->
                      <form method = 'POST' action='update'>
-                        hidden input: product['id']
-                        hidden input: action = remove
-                        button: X
+                        <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
+                        <input type = 'hidden' name = 'action' value = "remove">
+                       <button type = "submit">X</button>
                      </form>
+                     <!-- 2) პროდუქტის სურათი -->
+                    <img src="{{ product.image }}" class='prod_img'>
+
+                    <!-- 3) დასახელება-->
+                      <p>{{ product.name }}</p>
+
+                    <!-- 4) - ღილაკი-->
+                    <form method = 'POST' action='update'>
+                        <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
+                        <input type = 'hidden' name = 'action' value = "reduce">
+                       <button type = "submit">-</button>
+                     </form>
+                     <!-- 5) რაოდენობა -->
+                    <p>{{ product.quantity }}</p>
+                    <!-- 4) + ღილაკი-->
+                     <form method = 'POST' action='update'>
+                        <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
+                        <input type = 'hidden' name = 'action' value = "add">
+                       <button type = "submit">+</button>
+                     </form>
+                    <p>{{ product.price }}</p>
                 </div>
             {%endfor%}
         </div>

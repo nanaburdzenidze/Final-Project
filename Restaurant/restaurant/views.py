@@ -23,7 +23,7 @@ def cart(request):
     total = 0
     
     for prod in products :
-        if str(prod['id']) == cart[str(prod['id'])]:
+        if str(prod['id']) in cart:
             quantity += cart[str(prod['id'])]
             total += cart[str(prod['id'])] * prod['price']
             prods.append({

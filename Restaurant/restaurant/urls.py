@@ -3,6 +3,6 @@ from . views import index, cart
 
 urlpatterns = [
     path('', index, name = 'menu'),
-    path('/cart', cart, name = 'cart'),
+    path('cart/', cart, name = 'cart'),
     
 ]
