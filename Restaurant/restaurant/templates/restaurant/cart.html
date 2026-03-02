@@ -31,31 +31,14 @@
                 </ol>
             {% endfor %}
             </div>
-        <div class='products'>
-            {% for product in products %}
-                <div class = 'product'>
-                    <img src="{{ product.image }}" class='prod_img'>
-                    <p>Price:{{ product.price }}</p>
-                    <p>
-                        Spicy:
-                        {% if product.spicy %}
-                            yes
-                        {% endif %}
-                        {% if not product.spicy %}
-                            No
-                        {% endif %}
-                        </p>
-                    <p>Vegetarian:
-                        {% if product.vegetarian %}
-                        yes
-                        {% endif %}
-                        {% if not product.vegetarian %}
-                            No
-                        {% endif %}
-                        </p>
-                </div>
-            {% endfor %}
-        </div>
+        
 
+        <div> <!--  კონტეინერი რომელიც შეიცავს კალათაში არსებული პროდუქტების კონტეინერებს-->
+            {% for product in products %}<!-- გადავუყვებით ყველა პროდუქტს რომელიც არის კალათაში და თითოეულს მოვათავსებთ თვაის კონტეინერში -->
+                <div class = 'cart_item'>
+                    <!-- თითოეული პროსუქტისთვის უნდა იყოს შემდეგი ელემენტები: 1) ღილაკი რომელიც მთლიანად წაშლის ამ პროდუქტს კალათიდან 2) სურათი 3) დასახელება 
+                     +- ღილაკები, 5) რაოდენობა 6) ერთი ცალის ფასი და 7) შესაბამისი რაოდენობის ფასი-->
+                </div>
+        </div>
     </body>
 </html>
