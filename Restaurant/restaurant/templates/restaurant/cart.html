@@ -26,14 +26,14 @@
             </div>
         </div>
 
-        <div> <!--  კონტეინერი რომელიც შეიცავს კალათაში არსებული პროდუქტების კონტეინერებს-->
+        <div class = 'cart_cont'> <!--  კონტეინერი რომელიც შეიცავს კალათაში არსებული პროდუქტების კონტეინერებს-->
             {% for product in products %}<!-- გადავუყვებით ყველა პროდუქტს რომელიც არის კალათაში და თითოეულს მოვათავსებთ თვაის კონტეინერში -->
                 <div class = 'cart_item'>
                     <!-- თითოეული პროსუქტისთვის უნდა იყოს შემდეგი ელემენტები: 1) ღილაკი რომელიც მთლიანად წაშლის ამ პროდუქტს კალათიდან 2) სურათი 3) დასახელება 
                      +- ღილაკები, 5) რაოდენობა 6) ერთი ცალის ფასი და 7) შესაბამისი რაოდენობის ფასი-->
 
                      <!-- აქ არის 1) ღილაკი რომელიც წაშლის პროდუქტს მთლიანად კალათიდან-->
-                     <form method = 'POST' action='update'>
+                     <form method = 'POST' action="{% url 'update_cart' %}">
                         {% csrf_token %}
                         <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
                         <input type = 'hidden' name = 'action' value = "remove">
@@ -46,7 +46,7 @@
                       <p>{{ product.prod }}</p>
 
                     <!-- 4) - ღილაკი-->
-                    <form method = 'POST' action='update'>
+                    <form method = 'POST' action="{% url 'update_cart' %}">
                         {% csrf_token %}
                         <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
                         <input type = 'hidden' name = 'action' value = "reduce">
@@ -55,7 +55,7 @@
                      <!-- 5) რაოდენობა -->
                     <p>{{ product.quantity }}</p>
                     <!-- 4) + ღილაკი-->
-                     <form method = 'POST' action='update'>
+                     <form method = 'POST' action="{% url 'update_cart' %}">
                         {% csrf_token %}
                         <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
                         <input type = 'hidden' name = 'action' value = "add">
@@ -65,7 +65,7 @@
                     <p>${{ product.price }}</p>
 
                     <!-- 7) მოცემული პროდუქტის მოცემული რაოდენობის ფასი-->
-                     <p> ${{product.tot}}
+                     <p> ${{product.tot}}</p>
                 </div>
             {%endfor%}
         </div>

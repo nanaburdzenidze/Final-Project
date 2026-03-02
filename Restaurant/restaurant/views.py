@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 import requests
 
 API_BASE = "https://restaurant.stepprojects.ge"
+
+
 def index(request):
     categories = requests.get(f"{API_BASE}/api/Categories/GetAll").json()
     products = requests.get(f"{API_BASE}/api/Products/GetAll").json()
@@ -22,6 +24,9 @@ def cart(request):
     quantity = 0
     total = 0
     
+    '''
+    პროდუქტებში ვეძებთ ისეთებს რომლებიც არი კალათაში, ვითვლით მათ რაოდენობას, ფასს ვქმნით ახალ ლისტს ლექსიკონებისას
+    '''
     for prod in products :
         if str(prod['id']) in cart:
             quantity += cart[str(prod['id'])]
@@ -52,12 +57,16 @@ def update_cart(request):
     return redirect('menu')
 
 def add_to_cart(request):
+    #ვიღებთ მიმდინარე კალატასა და პროდუქტს რომლის დამატებაც გვინდა კალათაში
     cart = request.session.get('cart',{})
     prod = request.POST.get('product_id')
+    #ვამოწმებთ არის თუ არა ის უკვე კალათაში, თუ არის მის რაოდენობას გავზრდით ერთით თუ არადა ახალი რპდუქტი უნდა დაემატოს კალათას
     if prod in cart:
-        cart[str(prod)] += 1
+        cart[prod] += 1
     else:
-        cart[str(prod)] = 1
+        cart[prod] = 1
+    request.session['cart']=cart
+    request.session.modified = True
     return redirect('menu')
 
 

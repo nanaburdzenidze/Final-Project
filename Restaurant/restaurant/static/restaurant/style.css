@@ -73,8 +73,13 @@ body{
     width: 100%;
     height: 150px;
 }
-
+.cart_cont{
+    background-color: gray;
+    display: flex;
+    flex-wrap: wrap;
+}
 .cart_item{
-    background-color: violet;
-    
+    background-color: gray;
+    display: flex;
+    flex-wrap: wrap;
 }
