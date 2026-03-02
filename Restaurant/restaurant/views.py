@@ -31,6 +31,7 @@ def cart(request):
                         'prod' : prod['name'],
                         'image' : prod['image'],
                         'quantity' : cart[str(prod['id'])],
+                        'price': prod['price'],
                         'tot' : cart[str(prod['id'])] * prod['price']
                         })
                     
@@ -48,7 +49,8 @@ def update_cart(request):
     ...
     request.session['cart']=cart
     request.session.modified = True
-    return redirect('index')
+    return redirect('menu')
+
 def add_to_cart(request):
     ...
 
