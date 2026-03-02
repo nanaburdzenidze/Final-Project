@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 
 API_BASE = "https://restaurant.stepprojects.ge"
@@ -44,11 +44,11 @@ def cart(request):
     return render(request, 'restaurant/cart.html', context)
     
 def update_cart(request):
-    cart = request.POST.get("cart",{})
+    cart = request.session.get('cart',{})
     ...
     request.session['cart']=cart
     request.session.modified = True
-    return
+    return redirect('index')
 def add_to_cart(request):
     ...
 

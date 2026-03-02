@@ -24,21 +24,19 @@
             </div>
             
         </div>
-        <div class = 'categories'>
-            {% for category in categories %}
-                <ol class = 'category'>
-                    <a href="?category={{ category.id }}">{{ category.name }} </a>
-                </ol>
-            {% endfor %}
-            </div>
-        
 
         <div> <!--  კონტეინერი რომელიც შეიცავს კალათაში არსებული პროდუქტების კონტეინერებს-->
             {% for product in products %}<!-- გადავუყვებით ყველა პროდუქტს რომელიც არის კალათაში და თითოეულს მოვათავსებთ თვაის კონტეინერში -->
                 <div class = 'cart_item'>
                     <!-- თითოეული პროსუქტისთვის უნდა იყოს შემდეგი ელემენტები: 1) ღილაკი რომელიც მთლიანად წაშლის ამ პროდუქტს კალათიდან 2) სურათი 3) დასახელება 
                      +- ღილაკები, 5) რაოდენობა 6) ერთი ცალის ფასი და 7) შესაბამისი რაოდენობის ფასი-->
+                     <form method = 'POST' action='update'>
+                        hidden input: product['id']
+                        hidden input: action = remove
+                        button: X
+                     </form>
                 </div>
+            {%endfor%}
         </div>
     </body>
 </html>
