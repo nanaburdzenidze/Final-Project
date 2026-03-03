@@ -29,9 +29,9 @@ def filter_by_preference(request, prods):
     nuts = request.GET.get('nuts')
     spiciness = request.GET.get('spicy')
     for prod in prods:
-        if vegetarian == '1' and not prod['vegetarian']:
+        if vegetarian == '1' and not prod.get('vegetarian',False):
              continue
-        if nuts == '1' and not prod['nuts']:
+        if nuts == '1' and not prod.get('nuts',False):
             continue
         if spiciness == '0' and not (prod['spiciness'] == 0 ):
             continue

@@ -1,13 +1,16 @@
 body{
     font-family: sans-serif;
     margin: 30px;
-    background-color: lavenderblush;
+    background-color: whitesmoke;
 }
 .top{
-    background-color: lightblue;
-    border: 5px solid plum;
+    background-color: darkgray;
+    border: 5px solid cadetblue;
+    color: black;
     border-width: 5px;
     border-radius: 15px;
+    box-shadow: 0px 5px 15px black;
+    padding: 15px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -31,12 +34,16 @@ body{
     margin-top: 0px;
 }
 .home{
+    color: black;
+    font-size: 20px;
     cursor: pointer;
     text-align: center;
     margin-right: 20px;
     text-decoration: none;
 }
 .cart{
+    color: black;
+    font-size: 20px;
     cursor: pointer;
     text-align: center;
     margin-right: 20px;
@@ -44,75 +51,142 @@ body{
 }
 .categories {
     border-radius: 10px;
-    border: 5px;
-    flex-wrap: wrap;
+    border: 3px solid cadetblue;
+    flex-wrap: inline-block;
+    text-decoration: none;
     text-align: center;
     display: flex;
+    gap: 20px;
+    padding: 10px;
+    background-color: lightgray;
     list-style: none;
     justify-content: space-evenly;
+
+}
+.categories a{
+    display: inline-block;
+    border-color: cadetblue;
+    padding: 5px 10px;
     text-decoration: none;
+    color: black;
 }
 
 .category {
-    background-color: lightpink;
-    border: 3px solid;
-    border-radius: 10px;
+    border: none;
+    border-radius: 0;
     text-align: center;
-    color: purple;
+    color: black;
     font-weight: bold;
     font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+}
+.categories a:hover{
+    background-color: darkgray;
+    color: white;
+    border-radius: 5px;
 }
 .products{
+    margin-top: 30px;
     display: flex;
     flex-wrap: wrap;
     gap: 23px;
 }
 .product{
-    background-color: mintcream;
-    border: 5px solid lightblue;
+    background-color: lightgray;
+    border: 2px solid cadetblue;
     border-radius: 20px;
     width: 250px;
+    padding:  20px;
 
 }
 .prod_img{
     width: 100%;
     height: 150px;
+    object-fit: contain;
+
 }
 .cart_cont{
-    background-color: gray;
+    margin-top: 0;
     display: flex;
     flex-direction: column;
-    display: flex;
-    flex-wrap: wrap;
     gap: 30px
 }
 .cart_item{
-    background-color: gray;
+    background-color: white;
+    border: 2px solid cadetblue;
+    border-radius: 15px;
+    padding: 15px 20px;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap:20px
 }
-.button{
-    background-color: powderblue;
+.cart_item > div{
+    display:  flex;
+    align-items: center;
+    gap: 20px;
+}
+.cart_total{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+.add_to_cart_button{
+    background-color: cadetblue;
     color: white;
-    border: 2px solid plum;
-    border-radius: 10px;
-    box-shadow: 0px 5px 10px gray;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-weight: 500;
     cursor: pointer;
     text-align: center;
-
+    transition: 0.5s;
+}
+.add_to_cart_button :hover{
+    background-color: darkslategray;
+}
+.apply_button{
+    width: 100%;
+    background-color: cadetblue;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.5s;
+}
+.apply_button :hover{
+    background-color: darkslategray;
+}
+.button:hover{
+    background-color: darkslategray;
 }
 .slidecontainer{
     width: 100%;
 }
 .filters{
-    border: 5px solid lightpink; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+    border: 3px solid cadetblue; 
     border-radius: 15px;
     color: black;
-    background-color: lightblue;
+    background-color: lightgray;
     padding: 20px;
     min-width: 250px
 
+}
+.options{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .layout{

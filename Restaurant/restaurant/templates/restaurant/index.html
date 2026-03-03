@@ -15,15 +15,25 @@
     <div class = 'layout'>
         <div class = 'filters'>
             <h1>Filters</h1>
+            
             <form method = 'GET'>
                 <div class='slidecontainer'>
                     Spiciness
-                    <input type='range' min='0' max='4' class='slider'>
+                    <input type='range' min='0' max='4' value='0' name='spicy' class='slider'>
                 </div>
-                <input type="checkbox" name='Vegetarian' value='1'>Vegetarian</input>
-                <input type="checkbox" name='nuts' value='1'>Nuts</input>
-                <button type='submit' class='button'>Apply</button>
+                <div class='options'>
+                    <label>
+                        <input type="checkbox" name='vegetarian' value='1'>Vegetarian</input>
+                    </label>
+                    <label>
+                        <input type="checkbox" name='nuts' value='1'>Nuts</input>
+                    </label>
+                </div>
+                    <button type='submit' class='apply_button'>Reset</button>
+                    <button type='submit' class='apply_button'>Apply</button>
+                
             </form>
+            
         </div>
         <div class='products'>
             {% for product in products %}
@@ -56,13 +66,21 @@
                             {% if not product.vegetarian %}
                                 No
                             {% endif %}
-                            </p>
+                        </p>
+                         <p>Nuts:
+                            {% if product.nuts %}
+                            yes
+                            {% endif %}
+                            {% if not product.nuts %}
+                                No
+                            {% endif %}
+                        </p>
                         </div>
                         <div>
                             <form method = 'POST' action="{% url 'add_to_cart' %}">
                                 {% csrf_token %}
                                 <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
-                                <button type = "submit" class='button'>Add to Cart</button>
+                                <button type = "submit" class='add_to_cart_button'>Add to Cart</button>
                             </form>
                         </div>
                 </div>
