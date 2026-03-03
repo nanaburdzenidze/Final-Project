@@ -3,6 +3,11 @@ body{
     margin: 30px;
     background-color: whitesmoke;
 }
+.logo{
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+}
 .top{
     background-color: darkgray;
     border: 5px solid cadetblue;
@@ -102,32 +107,35 @@ body{
 
 }
 .prod_img{
-    width: 100%;
+
     height: 150px;
     object-fit: contain;
 
 }
 .cart_cont{
-    margin-top: 0;
+    margin-top: 60;
     display: flex;
     flex-direction: column;
     gap: 30px
 }
 .cart_item{
-    background-color: white;
+    background-color: lightgray;
     border: 2px solid cadetblue;
     border-radius: 15px;
     padding: 15px 20px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap:20px
+    gap:20px;
 }
-.cart_item > div{
-    display:  flex;
+
+.info{
+    margin-left: auto;
+    display: flex;
     align-items: center;
     gap: 20px;
 }
+
 .cart_total{
     display: flex;
     justify-content: flex-end;
@@ -145,21 +153,25 @@ body{
     text-align: center;
     transition: 0.5s;
 }
-.add_to_cart_button :hover{
+.add_to_cart_button:hover{
     background-color: darkslategray;
 }
 .apply_button{
     width: 100%;
+    box-sizing: border-box;
     background-color: cadetblue;
     color: white;
+    margin-top: 20px;
     border-radius: 5px;
     padding: 10px 15px;
     font-weight: 500;
     cursor: pointer;
     text-align: center;
     transition: 0.5s;
+    display: block;
+    text-decoration: none;
 }
-.apply_button :hover{
+.apply_button:hover{
     background-color: darkslategray;
 }
 .button:hover{
@@ -178,7 +190,7 @@ body{
     color: black;
     background-color: lightgray;
     padding: 20px;
-    min-width: 250px
+    min-width: 300px;
 
 }
 .options{

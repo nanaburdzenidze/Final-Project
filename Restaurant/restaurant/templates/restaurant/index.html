@@ -18,8 +18,13 @@
             
             <form method = 'GET'>
                 <div class='slidecontainer'>
-                    Spiciness
-                    <input type='range' min='0' max='4' value='0' name='spicy' class='slider'>
+                    <label> 
+                        Spiciness 
+                    </label>
+                    <input type='range' min='0' max='4' name='spicy' class='slider'>
+                    <label>
+                        <input type="checkbox" name='any' value='1'>Any</input>
+                    </label>
                 </div>
                 <div class='options'>
                     <label>
@@ -29,7 +34,7 @@
                         <input type="checkbox" name='nuts' value='1'>Nuts</input>
                     </label>
                 </div>
-                    <button type='submit' class='apply_button'>Reset</button>
+                    <button type='button' class='apply_button' onclick="window.location.href='{% url 'menu' %}'">Reset</button>
                     <button type='submit' class='apply_button'>Apply</button>
                 
             </form>

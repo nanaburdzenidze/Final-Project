@@ -16,31 +16,33 @@
                      </form>
                      <!-- 2) პროდუქტის სურათი -->
                     <img src="{{ product.image }}" class='prod_img'>
-
                     <!-- 3) დასახელება-->
-                      <p>{{ product.prod }}</p>
+                    <p>{{ product.prod }}</p>
+                    <div class='info'>   
+                        <!-- 4) - ღილაკი-->
+                        <form method = 'POST' action="{% url 'update_cart' %}">
+                            {% csrf_token %}
+                            <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
+                            <input type = 'hidden' name = 'action' value = "reduce">
+                        <button type = "submit">-</button>
+                        </form>
+                        <!-- 5) რაოდენობა -->
+                        <p>{{ product.quantity }}</p>
+                    
+                        <!-- 4) + ღილაკი-->
+                        <form method = 'POST' action="{% url 'update_cart' %}">
+                            {% csrf_token %}
+                            <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
+                            <input type = 'hidden' name = 'action' value = "add">
+                        <button type = "submit">+</button>
+                        </form>
+            
+                        <!-- 6) ერთი ერთეულის ფასი-->
+                        <p>${{ product.price }}</p>
 
-                    <!-- 4) - ღილაკი-->
-                    <form method = 'POST' action="{% url 'update_cart' %}">
-                        {% csrf_token %}
-                        <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
-                        <input type = 'hidden' name = 'action' value = "reduce">
-                       <button type = "submit">-</button>
-                     </form>
-                     <!-- 5) რაოდენობა -->
-                    <p>{{ product.quantity }}</p>
-                    <!-- 4) + ღილაკი-->
-                     <form method = 'POST' action="{% url 'update_cart' %}">
-                        {% csrf_token %}
-                        <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
-                        <input type = 'hidden' name = 'action' value = "add">
-                       <button type = "submit">+</button>
-                     </form>
-                    <!-- 6) ერთი ერთეულის ფასი-->
-                    <p>${{ product.price }}</p>
-
-                    <!-- 7) მოცემული პროდუქტის მოცემული რაოდენობის ფასი-->
-                     <p> ${{product.tot}}</p>
+                        <!-- 7) მოცემული პროდუქტის მოცემული რაოდენობის ფასი-->
+                        <p> ${{product.tot}}</p>
+                    </div>
                 </div>
             {%endfor%}
             <div class='cart_total'>Total: $ {{ total }}</div>

@@ -28,21 +28,23 @@ def filter_by_preference(request, prods):
     vegetarian = request.GET.get('vegetarian')
     nuts = request.GET.get('nuts')
     spiciness = request.GET.get('spicy')
+    any_spiciness = request.GET.get('any')
     for prod in prods:
         if vegetarian == '1' and not prod.get('vegetarian',False):
              continue
         if nuts == '1' and not prod.get('nuts',False):
             continue
-        if spiciness == '0' and not (prod['spiciness'] == 0 ):
-            continue
-        if spiciness == '1' and not (prod['spiciness'] == 1 ):
-            continue
-        if spiciness == '2' and not (prod['spiciness'] == 2 ):
-            continue
-        if spiciness == '3' and not (prod['spiciness'] == 3 ):
-            continue
-        if spiciness == '4' and not (prod['spiciness'] == 4 ):
-            continue
+        if not any_spiciness:
+            if spiciness == '0' and not (prod['spiciness'] == 0 ):
+                continue
+            if spiciness == '1' and not (prod['spiciness'] == 1 ):
+                continue
+            if spiciness == '2' and not (prod['spiciness'] == 2 ):
+                continue
+            if spiciness == '3' and not (prod['spiciness'] == 3 ):
+                continue
+            if spiciness == '4' and not (prod['spiciness'] == 4 ):
+                continue
         filtered.append(prod)
     return filtered
        
