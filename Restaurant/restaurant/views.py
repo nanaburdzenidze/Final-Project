@@ -3,6 +3,10 @@ import requests
 
 API_BASE = "https://restaurant.stepprojects.ge"
 
+'''
+მივიღებთ ინფორმაცია თუ რომელი კატეგორიაა მონიშნული, მონიშნული კატეგორიის მიხედვით გდავუყვებით ყველა პროდუქტს 
+და სიაში ჩავაგდებთ მხოლოდ ისეთებს რომლის კატეგორია ემთხვევა მონიშნულ კატეგროიას
+'''
 def filter_by_cat(request):
     filtered=[]
     sel_category = request.GET.get('category')
@@ -15,6 +19,10 @@ def filter_by_cat(request):
             filtered.append(prod)
     return filtered
 
+'''
+გადმოგვეცემა პროდუქტების სია, ასევე ვიგებთ მონიშნული არის თუ არა ვეგეტარიანული და თხილით, ვიგებთ სიცხარის დონეს რომელიც მონიშნულია.
+ამის შემდეგ ვფილტავრთ გადმოცემულ პრდოუქტებს.
+'''
 def filter_by_preference(request, prods):
     filtered = []
     vegetarian = request.GET.get('vegetarian')
@@ -38,7 +46,9 @@ def filter_by_preference(request, prods):
         filtered.append(prod)
     return filtered
        
-       
+'''
+ვიღებთ კატეგორიებს , ვფილტრავთ პროდუქტებს კატეგორიების მიხედვით( თუ კატეგორია არ არის მონიშნული გვენმქბეა ყველა პროდუქტი) შემდეგ კი ვფილტრავთ პრეფერენსების მიხედვით.
+'''      
 def index(request):
     categories = requests.get(f"{API_BASE}/api/Categories/GetAll").json()
     products = filter_by_cat(request)
@@ -83,12 +93,29 @@ def cart(request):
     
     return render(request, 'restaurant/cart.html', context)
     
+    
 def update_cart(request):
     cart = request.session.get('cart',{})
-    ...
+    action = request.POST.get('action')
+    prod_id = request.POST.get('product_id')
+    
+    if action == 'remove': 
+        if prod_id in cart:
+            del cart[prod_id]
+    elif action == 'reduce':
+        if prod_id in cart:
+            if cart[prod_id] > 1:
+                cart[prod_id] -= 1
+            else:
+                del cart[prod_id]
+    elif action == 'add':
+        if prod_id in cart:
+            cart[prod_id] += 1
+        else:
+            cart[prod_id] = 1
     request.session['cart']=cart
     request.session.modified = True
-    return redirect('menu')
+    return redirect('cart')
 
 def add_to_cart(request):
     #ვიღებთ მიმდინარე კალატასა და პროდუქტს რომლის დამატებაც გვინდა კალათაში
