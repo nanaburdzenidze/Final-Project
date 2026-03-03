@@ -63,8 +63,7 @@ def index(request):
     return render(request, 'restaurant/index.html', context)
         
 def cart(request):
-    cart = request.session.get('cart',{})
-    products = requests.get(f"{API_BASE}/api/Products/GetAll").json()
+    cart = requests.get(f"{API_BASE}/api/Baskets/GetAll").json()
     
     prods = []   
     quantity = 0
@@ -73,20 +72,19 @@ def cart(request):
     '''
     პროდუქტებში ვეძებთ ისეთებს რომლებიც არი კალათაში, ვითვლით მათ რაოდენობას, ფასს ვქმნით ახალ ლისტს ლექსიკონებისას
     '''
-    for prod in products :
-        if str(prod['id']) in cart:
-            quantity += cart[str(prod['id'])]
-            total += cart[str(prod['id'])] * prod['price']
-            prods.append({
-                        'id' : prod['id'],
-                        'prod' : prod['name'],
-                        'image' : prod['image'],
-                        'quantity' : cart[str(prod['id'])],
-                        'price': prod['price'],
-                        'tot' : cart[str(prod['id'])] * prod['price']
-                        })
+    for prod in cart :
+        quantity += prod['quantity']
+        total += prod['quantity'] * prod['price']
+        prods.append({
+                    'id' : prod.get('id'),
+                    'productId': prod['product']['id'],
+                    'prod' : prod['product']['name'],
+                    'image' : prod['product']['image'],
+                    'quantity' : prod['quantity'],
+                    'price': prod['price'],
+                    'tot' : prod['quantity'] * prod['price']
+                    })
                     
-    
     context = {
         'products' :prods,
         'total' : total,
@@ -97,40 +95,51 @@ def cart(request):
     
     
 def update_cart(request):
-    cart = request.session.get('cart',{})
     action = request.POST.get('action')
-    prod_id = request.POST.get('product_id')
-    
+    prod_id = int(request.POST.get('product_id'))
+    quantity =0
+    price = 0
+    cart = requests.get(f"{API_BASE}/api/Baskets/GetAll").json()
+    products = requests.get(f"{API_BASE}/api/Products/GetAll").json()
     if action == 'remove': 
-        if prod_id in cart:
-            del cart[prod_id]
-    elif action == 'reduce':
-        if prod_id in cart:
-            if cart[prod_id] > 1:
-                cart[prod_id] -= 1
-            else:
-                del cart[prod_id]
-    elif action == 'add':
-        if prod_id in cart:
-            cart[prod_id] += 1
+        requests.delete(f"{API_BASE}/api/Baskets/DeleteProduct/{prod_id}")
+        return redirect('cart')
+    for prod in products:
+        if prod['id'] == prod_id:
+            price = prod['price']
+            break
+    for prod in cart:
+        if int(prod['product']['id']) == prod_id:
+            quantity = int(prod['quantity'])
+            break
+         
+        
+    if action == 'reduce':
+        if quantity >1:
+            quantity -= 1
         else:
-            cart[prod_id] = 1
-    request.session['cart']=cart
-    request.session.modified = True
+            requests.delete(f"{API_BASE}/api/Baskets/DeleteProduct/{prod_id}")
+            return redirect('cart')
+    elif action == 'add':
+        quantity += 1
+    requests.put(f"{API_BASE}/api/Baskets/UpdateBasket", json={'productId':prod_id,'quantity':quantity, 'price': price})
     return redirect('cart')
 
 def add_to_cart(request):
-    #ვიღებთ მიმდინარე კალატასა და პროდუქტს რომლის დამატებაც გვინდა კალათაში
-    cart = request.session.get('cart',{})
-    prod = request.POST.get('product_id')
-    #ვამოწმებთ არის თუ არა ის უკვე კალათაში, თუ არის მის რაოდენობას გავზრდით ერთით თუ არადა ახალი რპდუქტი უნდა დაემატოს კალათას
-    if prod in cart:
-        cart[prod] += 1
-    else:
-        cart[prod] = 1
-    request.session['cart']=cart
-    request.session.modified = True
+    prod_id = int(request.POST.get('product_id'))
+    cart = requests.get(f"{API_BASE}/api/Baskets/GetAll").json()
+    products = requests.get(f"{API_BASE}/api/Products/GetAll").json()
+    price = 0
+
+    for p in cart:
+        if (p['product']['id']) == prod_id:
+            quantity = p['quantity']+1
+            requests.put(f"{API_BASE}/api/Baskets/UpdateBasket", json={ 'productId':prod_id,'quantity': quantity, 'price':p['price']})
+            return redirect('menu')
+    for p in products:
+        if p['id'] == prod_id:
+            price = p['price']
+            
+            break
+    requests.post(f"{API_BASE}/api/Baskets/AddToBasket", json={'productId': prod_id, 'quantity': 1,'price':price})
     return redirect('menu')
-
-
-    

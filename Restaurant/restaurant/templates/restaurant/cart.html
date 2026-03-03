@@ -1,4 +1,4 @@
-{% extends "Restaurant/base.html" %}
+{% extends "restaurant/base.html" %}
 {% block content %}
     <body>
         <div class = 'cart_cont'> <!--  კონტეინერი რომელიც შეიცავს კალათაში არსებული პროდუქტების კონტეინერებს-->
@@ -10,7 +10,7 @@
                      <!-- აქ არის 1) ღილაკი რომელიც წაშლის პროდუქტს მთლიანად კალათიდან-->
                      <form method = 'POST' action="{% url 'update_cart' %}">
                         {% csrf_token %}
-                        <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
+                        <input type = 'hidden' name = 'product_id' value = "{{ product.productId }}">
                         <input type = 'hidden' name = 'action' value = "remove">
                        <button type = "submit">X</button>
                      </form>
@@ -22,7 +22,7 @@
                         <!-- 4) - ღილაკი-->
                         <form method = 'POST' action="{% url 'update_cart' %}">
                             {% csrf_token %}
-                            <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
+                            <input type = 'hidden' name = 'product_id' value = "{{ product.productId  }}">
                             <input type = 'hidden' name = 'action' value = "reduce">
                         <button type = "submit">-</button>
                         </form>
@@ -32,7 +32,7 @@
                         <!-- 4) + ღილაკი-->
                         <form method = 'POST' action="{% url 'update_cart' %}">
                             {% csrf_token %}
-                            <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
+                            <input type = 'hidden' name = 'product_id' value = "{{ product.productId }}">
                             <input type = 'hidden' name = 'action' value = "add">
                         <button type = "submit">+</button>
                         </form>
@@ -41,7 +41,7 @@
                         <p>${{ product.price }}</p>
 
                         <!-- 7) მოცემული პროდუქტის მოცემული რაოდენობის ფასი-->
-                        <p> ${{product.tot}}</p>
+                        <p> ${{ product.tot}}</p>
                     </div>
                 </div>
             {%endfor%}

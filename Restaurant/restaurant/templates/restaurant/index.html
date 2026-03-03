@@ -1,4 +1,4 @@
-{% extends "Restaurant/base.html" %}
+{% extends "restaurant/base.html" %}
 {% block content %}
 
 
@@ -84,7 +84,7 @@
                         <div>
                             <form method = 'POST' action="{% url 'add_to_cart' %}">
                                 {% csrf_token %}
-                                <input type = 'hidden' name = 'product_id' value = "{{ product.id}}">
+                                <input type = 'hidden' name = 'product_id' value = "{{ product.id }}"">
                                 <button type = "submit" class='add_to_cart_button'>Add to Cart</button>
                             </form>
                         </div>
