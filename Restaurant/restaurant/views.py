@@ -7,23 +7,45 @@ def filter_by_cat(request):
     filtered=[]
     sel_category = request.GET.get('category')
     products = requests.get(f"{API_BASE}/api/Products/GetAll").json()
-        
+    if not sel_category:
+        return products
+    
     for prod in products:
         if str(prod['categoryId']) == sel_category:
             filtered.append(prod)
     return filtered
-def filter_by_preference(request):
-       vegetarian = request.GET.get('vegetarian')
-       vegetarian = request.GET.get('vegetarian')
+
+def filter_by_preference(request, prods):
+    filtered = []
+    vegetarian = request.GET.get('vegetarian')
+    nuts = request.GET.get('nuts')
+    spiciness = request.GET.get('spicy')
+    for prod in prods:
+        if vegetarian == '1' and not prod['vegetarian']:
+             continue
+        if nuts == '1' and not prod['nuts']:
+            continue
+        if spiciness == '0' and not (prod['spiciness'] == 0 ):
+            continue
+        if spiciness == '1' and not (prod['spiciness'] == 1 ):
+            continue
+        if spiciness == '2' and not (prod['spiciness'] == 2 ):
+            continue
+        if spiciness == '3' and not (prod['spiciness'] == 3 ):
+            continue
+        if spiciness == '4' and not (prod['spiciness'] == 4 ):
+            continue
+        filtered.append(prod)
+    return filtered
+       
+       
 def index(request):
     categories = requests.get(f"{API_BASE}/api/Categories/GetAll").json()
-    products = requests.get(f"{API_BASE}/api/Products/GetAll").json()
-
-    filtered_cat = filter_by_cat(request)
+    products = filter_by_cat(request)
+    products = filter_by_preference(request, products)
     context = {
         'categories' : categories,
         'products' : products,
-        #'prod_count' : count,
     }
     
     return render(request, 'restaurant/index.html', context)
