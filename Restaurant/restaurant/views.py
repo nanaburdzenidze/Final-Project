@@ -3,11 +3,23 @@ import requests
 
 API_BASE = "https://restaurant.stepprojects.ge"
 
-
+def filter_by_cat(request):
+    filtered=[]
+    sel_category = request.GET.get('category')
+    products = requests.get(f"{API_BASE}/api/Products/GetAll").json()
+        
+    for prod in products:
+        if str(prod['categoryId']) == sel_category:
+            filtered.append(prod)
+    return filtered
+def filter_by_preference(request):
+       vegetarian = request.GET.get('vegetarian')
+       vegetarian = request.GET.get('vegetarian')
 def index(request):
     categories = requests.get(f"{API_BASE}/api/Categories/GetAll").json()
     products = requests.get(f"{API_BASE}/api/Products/GetAll").json()
-    sel_category = request.GET.get('category')
+
+    filtered_cat = filter_by_cat(request)
     context = {
         'categories' : categories,
         'products' : products,
