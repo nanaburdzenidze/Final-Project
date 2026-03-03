@@ -81,12 +81,16 @@ body{
 .cart_cont{
     background-color: gray;
     display: flex;
+    flex-direction: column;
+    display: flex;
     flex-wrap: wrap;
+    gap: 30px
 }
 .cart_item{
     background-color: gray;
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
+    gap:20px
 }
 .button{
     background-color: powderblue;
