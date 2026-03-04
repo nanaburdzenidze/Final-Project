@@ -130,16 +130,16 @@ def add_to_cart(request):
     cart = requests.get(f"{API_BASE}/api/Baskets/GetAll").json()
     products = requests.get(f"{API_BASE}/api/Products/GetAll").json()
     price = 0
-
+    for p in products:
+        if p['id'] == prod_id:
+            price = p['price']
+            break
+        
     for p in cart:
         if (p['product']['id']) == prod_id:
             quantity = p['quantity']+1
             requests.put(f"{API_BASE}/api/Baskets/UpdateBasket", json={ 'productId':prod_id,'quantity': quantity, 'price':p['price']})
             return redirect('menu')
-    for p in products:
-        if p['id'] == prod_id:
-            price = p['price']
-            
-            break
+
     requests.post(f"{API_BASE}/api/Baskets/AddToBasket", json={'productId': prod_id, 'quantity': 1,'price':price})
     return redirect('menu')

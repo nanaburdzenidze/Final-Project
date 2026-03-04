@@ -57,7 +57,7 @@ body{
 .categories {
     border-radius: 10px;
     border: 3px solid cadetblue;
-    flex-wrap: inline-block;
+    flex-wrap: wrap;
     text-decoration: none;
     text-align: center;
     display: flex;
@@ -83,7 +83,6 @@ body{
     color: black;
     font-weight: bold;
     font-size: 20px;
-    font-weight: 500;
     text-decoration: none;
     cursor: pointer;
 }
@@ -113,7 +112,7 @@ body{
 
 }
 .cart_cont{
-    margin-top: 60;
+    margin-top: 60px;
     display: flex;
     flex-direction: column;
     gap: 30px
